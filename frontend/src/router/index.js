@@ -1,6 +1,11 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 // 1. 定义路由组件.
 import { BasicLayout } from "@/layouts"
+
+// const RouteView = {
+//   name: 'RouteView',
+//   render: h => h('router-view')
+// }
 
 // 2. 定义一些路由
 // 每个路由都需要映射到一个组件。
@@ -9,7 +14,29 @@ const routes = [
   {
     path: '/',
     component: BasicLayout,
+    redirect: '/dashboard',
     children: [
+      // dashboard
+      {
+        path: '/dashboard',
+        name: 'dashboard',
+        redirect: '/dashboard/hostinfo',
+        meta: { key: '/dashboard', icon: () => null, label: '控制面板', title: 'Title 2' },
+        children: [
+          {
+            path: '/dashboard/hostinfo',
+            name: 'info',
+            component: () => import('@/views/dashboard/HostInfo'),
+            meta: { key: '/dashboard/hostinfo', icon: () => null, label: '本机信息', title: 'Title 2-1' }
+          },
+        ]
+      },
+      // video
+      {
+        path: '/videos',
+        name: 'videos',
+        meta: { key: '/videos', icon: () => null, label: '视频', title: 'Title 3'},
+      }
     ]
   },
 ]
@@ -19,8 +46,9 @@ const routes = [
 // 暂时保持简单
 const router = createRouter({
   // 4. 内部提供了 history 模式的实现。为了简单起见，我们在这里使用 hash 模式。
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes, // `routes: routes` 的缩写
 })
 
+export { routes }
 export default router

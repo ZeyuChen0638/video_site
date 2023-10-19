@@ -9,7 +9,18 @@
       :style="{ overflow: 'auto', height: '100vh', position: 'fixed', left: 0, top: 0, bottom: 0 }"
     >
       <div class="logo" />
-      <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline">
+      <a-menu
+        id="dddddd"
+        :inlineCollapsed=false
+        v-model:openKeys="menu.openKeys"
+        v-model:selectedKeys="menu.selectedKeys"
+        mode="inline"
+        :items="menu.items"
+        theme="dark"
+        @click="handleClick"
+        @openChange="handleChange"
+      ></a-menu>
+      <!-- <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline" :items="[]">
         <a-menu-item key="1">
           <user-outlined />
           <span class="nav-text">nav 1</span>
@@ -42,12 +53,12 @@
           <shop-outlined />
           <span class="nav-text">nav 8</span>
         </a-menu-item>
-      </a-menu>
+      </a-menu> -->
     </a-layout-sider>
     <a-layout :style="{ marginLeft: '200px' }">
       <a-layout-header :style="{ background: '#fff', padding: 0 }" />
       <a-layout-content :style="{ margin: '24px 16px 0', overflow: 'initial' }">
-        <div :style="{ padding: '24px', background: '#fff', textAlign: 'center' }">
+        <div :style="{ padding: '24px', background: '#fff'}">
           <router-view />
         </div>
       </a-layout-content>
@@ -61,40 +72,97 @@
 
 <script>
 import { theme } from 'ant-design-vue'
-import {
-  UserOutlined,
-  VideoCameraOutlined,
-  UploadOutlined,
-  BarChartOutlined,
-  CloudOutlined,
-  AppstoreOutlined,
-  TeamOutlined,
-  ShopOutlined,
-} from '@ant-design/icons-vue'
+import { routes } from '@/router'
+// import {
+//   UserOutlined,
+//   VideoCameraOutlined,
+//   UploadOutlined,
+//   BarChartOutlined,
+//   CloudOutlined,
+//   AppstoreOutlined,
+//   TeamOutlined,
+//   ShopOutlined,
+// } from '@ant-design/icons-vue'
 
 export default {
   name: 'BasicLayout',
   components: {
-      UserOutlined,
-      VideoCameraOutlined,
-      UploadOutlined,
-      BarChartOutlined,
-      CloudOutlined,
-      AppstoreOutlined,
-      TeamOutlined,
-      ShopOutlined,
+      // UserOutlined,
+      // VideoCameraOutlined,
+      // UploadOutlined,
+      // BarChartOutlined,
+      // CloudOutlined,
+      // AppstoreOutlined,
+      // TeamOutlined,
+      // ShopOutlined,
   },
   data(){
     return({
       theme,
+      menu: {
+        items: [],
+        selectedKeys: [],
+        openKeys: ['/dashboard']
+      }
     })
+  },
+  created(){
+    // console.log(this.$route)
+    let indexRoute = routes.find(item=>item.path==='/')
+    this.menu.items = this.createMenuItems(indexRoute.children)
+    console.log(this.menu)
+  },
+  watch: {
+    $route:{
+      immediate: true,
+      handler(route) {
+        console.log(route)
+        this.menu.selectedKeys = [route.fullPath]
+      }
+    }
+  },
+  onUpdated(){
+    console.log("**********************************")
+    console.log(this.menu.selectedKeys)
+  },
+  methods: {
+    createMenuItems(routes) {
+      console.log(routes)
+      let staticRoutes = []
+      for (let route of routes) {
+        if (!('children' in route)) {
+          staticRoutes.push({
+            key:route.meta.key,
+            icon:route.meta.icon,
+            label:route.meta.label,
+          })
+        } else {
+          staticRoutes.push({
+            key:route.meta.key,
+            icon:route.meta.icon,
+            children:this.createMenuItems(route.children),
+            label:route.meta.label,
+          })
+        }
+      }
+      console.log(staticRoutes)
+      return staticRoutes
+    },
+    handleClick(menu){
+      console.log('click')
+      console.log(menu)
+      this.$router.push(menu.key)
+    },
+    handleChange(menu) {
+      console.log('change')
+      console.log(menu)
+    }
   }
-
 }
 </script>
 
 <style scoped>
-#components-layout-demo-fixed-sider .logo {
+.logo {
   height: 32px;
   background: rgba(255, 255, 255, 0.2);
   margin: 16px;

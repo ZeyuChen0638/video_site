@@ -1,5 +1,11 @@
+# vscode
+.vscode/
+
 # database
-database_data/
+db_volume/
 
 #frontend
 frontend/node_modules/
+
+#backend
+**/__pycache__
