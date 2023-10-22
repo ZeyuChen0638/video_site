@@ -10,7 +10,9 @@ import {
     Col,
     Form,
     Divider,
-    Empty
+    Empty,
+    Tabs,
+    Carousel
 } from 'ant-design-vue';
 import router from './router'
 import store from './store/'
@@ -38,6 +40,8 @@ app.use(Col)
 app.use(Form)
 app.use(Divider)
 app.use(Empty)
+app.use(Tabs)
+app.use(Carousel)
 
 
 app.component('svg-icon', SvgIcon)

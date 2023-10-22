@@ -36,6 +36,15 @@ const routes = [
         path: '/videos',
         name: 'videos',
         meta: { key: '/videos', icon: () => null, label: '视频', title: 'Title 3'},
+        redirect: '/videos/gallery',
+        children: [
+          {
+            path: '/videos/gallery',
+            name: 'video-gallery',
+            component: () => import('@/views/video/Gallery'),
+            meta: { key: '/videos/gallery', icon: () => null, label: '视频总览', title: 'Title 3-1' }
+          }
+        ]
       }
     ]
   },

@@ -1,7 +1,7 @@
 <template>
   <div class="main">
     <a-row :gutter="[16, 16]" justify="space-around">
-      <a-col :span="6">
+      <a-col :lg="12" :xl="6">
         <info-card>
           <template #title>
             <svg-icon iconname="icon-cpu-full" :style="{ 'font-size': '42px', 'float':'left', 'fill': 'rgba(24, 114, 157, 0.88)'}"></svg-icon>
@@ -10,7 +10,7 @@
           <template #body>
             <a-row>
               <a-col :span="12">
-                <a-form labelAlign="left" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
+                <a-form labelAlign="left">
                   <a-form-item>
                     <template #label>
                       <b>处理器</b>
@@ -21,7 +21,7 @@
                     <template #label>
                       <b>频率</b>
                     </template>
-                    <div>{{ cpuInfo.MHz }}</div>
+                    <div>{{ cpuInfo.MHz }} MHz</div>
                   </a-form-item>
                   <a-form-item>
                     <template #label>
@@ -47,7 +47,7 @@
           </template>
         </info-card>
       </a-col>
-      <a-col :span="6">
+      <a-col :lg="12" :xl="6">
         <info-card>
           <template #title>
             <svg-icon iconname="icon-neicun" :style="{ 'font-size': '42px', 'float':'left', 'fill': 'rgba(24, 114, 157, 0.88)'}"></svg-icon>
@@ -56,7 +56,7 @@
           <template #body>
             <a-row>
               <a-col :span="12">
-                <a-form labelAlign="left" :label-col="{ span: 7 }" :wrapper-col="{ span: 17 }">
+                <a-form labelAlign="left">
                   <a-form-item>
                     <template #label>
                       <b>内存总大小</b>
@@ -81,7 +81,7 @@
           </template>
         </info-card>
       </a-col>
-      <a-col :span="6">
+      <a-col :lg="12" :xl="6">
         <info-card>
           <template #title>
             <svg-icon iconname="icon-yingpan" :style="{ 'font-size': '42px', 'float':'left', 'fill': 'rgba(24, 114, 157, 0.88)'}"></svg-icon>
@@ -90,7 +90,7 @@
           <template #body>
             <a-row>
               <a-col :span="12">
-                <a-form labelAlign="left" :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
+                <a-form labelAlign="left">
                   <a-form-item v-for="(usage, folder) in diskinfo" :key="folder">
                     <template #label>
                       <b>{{ folder }}</b>
@@ -109,7 +109,7 @@
           </template>
         </info-card>
       </a-col>
-      <a-col :span="6">
+      <a-col :lg="12" :xl="6">
         <info-card>
           <template #title>
             <svg-icon iconname="icon-xianka" :style="{ 'font-size': '42px', 'float':'left', 'fill': 'rgba(24, 114, 157, 0.88)'}"></svg-icon>
@@ -143,7 +143,7 @@ export default {
       simpleImage
     })
   },
-  created(){
+  mounted(){
     getHostInfo().then(res=>{
       console.log(res)
       this.cpuInfo = res['cpu']

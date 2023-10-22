@@ -10,7 +10,7 @@
     >
       <div class="logo" />
       <a-menu
-        id="dddddd"
+        id="router-menu"
         :inlineCollapsed=false
         v-model:openKeys="menu.openKeys"
         v-model:selectedKeys="menu.selectedKeys"
@@ -20,40 +20,6 @@
         @click="handleClick"
         @openChange="handleChange"
       ></a-menu>
-      <!-- <a-menu v-model:selectedKeys="selectedKeys" theme="dark" mode="inline" :items="[]">
-        <a-menu-item key="1">
-          <user-outlined />
-          <span class="nav-text">nav 1</span>
-        </a-menu-item>
-        <a-menu-item key="2">
-          <video-camera-outlined />
-          <span class="nav-text">nav 2</span>
-        </a-menu-item>
-        <a-menu-item key="3">
-          <upload-outlined />
-          <span class="nav-text">nav 3</span>
-        </a-menu-item>
-        <a-menu-item key="4">
-          <bar-chart-outlined />
-          <span class="nav-text">nav 4</span>
-        </a-menu-item>
-        <a-menu-item key="5">
-          <cloud-outlined />
-          <span class="nav-text">nav 5</span>
-        </a-menu-item>
-        <a-menu-item key="6">
-          <appstore-outlined />
-          <span class="nav-text">nav 6</span>
-        </a-menu-item>
-        <a-menu-item key="7">
-          <team-outlined />
-          <span class="nav-text">nav 7</span>
-        </a-menu-item>
-        <a-menu-item key="8">
-          <shop-outlined />
-          <span class="nav-text">nav 8</span>
-        </a-menu-item>
-      </a-menu> -->
     </a-layout-sider>
     <a-layout :style="{ marginLeft: '200px' }">
       <a-layout-header :style="{ background: '#fff', padding: 0 }" />
@@ -110,24 +76,19 @@ export default {
     // console.log(this.$route)
     let indexRoute = routes.find(item=>item.path==='/')
     this.menu.items = this.createMenuItems(indexRoute.children)
-    console.log(this.menu)
   },
   watch: {
     $route:{
       immediate: true,
       handler(route) {
-        console.log(route)
         this.menu.selectedKeys = [route.fullPath]
       }
     }
   },
   onUpdated(){
-    console.log("**********************************")
-    console.log(this.menu.selectedKeys)
   },
   methods: {
     createMenuItems(routes) {
-      console.log(routes)
       let staticRoutes = []
       for (let route of routes) {
         if (!('children' in route)) {
@@ -145,17 +106,13 @@ export default {
           })
         }
       }
-      console.log(staticRoutes)
       return staticRoutes
     },
     handleClick(menu){
-      console.log('click')
-      console.log(menu)
       this.$router.push(menu.key)
     },
-    handleChange(menu) {
-      console.log('change')
-      console.log(menu)
+    handleChange() {
+
     }
   }
 }
