@@ -1,7 +1,8 @@
 from django.urls import path
-from . import views
+from .views import *
 from django.views.decorators.cache import cache_page
 
 urlpatterns = [
-    path("recommand/", views.recommand, name="recommand"),
+    path("recommand/", recommand, name="recommand"),
+    path("avatar/", AvatarAPIView.as_view(), )
 ]

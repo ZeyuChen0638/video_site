@@ -43,6 +43,12 @@ const routes = [
             name: 'video-gallery',
             component: () => import('@/views/video/Gallery'),
             meta: { key: '/videos/gallery', icon: () => null, label: '视频总览', title: 'Title 3-1' }
+          },
+          {
+            path: '/videos/videoWorkflow',
+            name: 'video-workflow',
+            component: () => import('@/views/video/VideoWorkflow'),
+            meta: { key: '/videos/videoWorkflow', icon: () => null, label: '视频任务', title: 'Title 3-2' }
           }
         ]
       }

@@ -39,6 +39,7 @@
 <script>
 import { theme } from 'ant-design-vue'
 import { routes } from '@/router'
+
 // import {
 //   UserOutlined,
 //   VideoCameraOutlined,
@@ -53,6 +54,7 @@ import { routes } from '@/router'
 export default {
   name: 'BasicLayout',
   components: {
+
       // UserOutlined,
       // VideoCameraOutlined,
       // UploadOutlined,
@@ -68,7 +70,7 @@ export default {
       menu: {
         items: [],
         selectedKeys: [],
-        openKeys: ['/dashboard']
+        openKeys: []
       }
     })
   },
@@ -81,6 +83,11 @@ export default {
     $route:{
       immediate: true,
       handler(route) {
+        let curOpenKeys = []
+        for (let parentPath of route.matched) {
+          curOpenKeys.push(parentPath.path)
+        }
+        this.menu.openKeys = [...curOpenKeys]
         this.menu.selectedKeys = [route.fullPath]
       }
     }

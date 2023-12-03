@@ -12,7 +12,13 @@ import {
     Divider,
     Empty,
     Tabs,
-    Carousel
+    Carousel,
+    Image,
+    Modal,
+    Input,
+    Avatar,
+    Tag,
+    Space
 } from 'ant-design-vue';
 import router from './router'
 import store from './store/'
@@ -42,7 +48,12 @@ app.use(Divider)
 app.use(Empty)
 app.use(Tabs)
 app.use(Carousel)
-
+app.use(Image)
+app.use(Modal)
+app.use(Input)
+app.use(Avatar)
+app.use(Tag)
+app.use(Space)
 
 app.component('svg-icon', SvgIcon)
 app.mount('#app');
